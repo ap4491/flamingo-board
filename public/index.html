@@ -250,6 +250,7 @@ $('undoBtn').onclick=()=>{const n=S.hist.pop();if(n)delete S.st[n];save();render
 $('resetBtn').onclick=()=>{if(confirm('Clear all manual picks? Synced Yahoo picks will reload.')){S.st={};S.hist=[];save();render()}};
 const sel=$('slotSel');for(let i=1;i<=20;i++)sel.add(new Option(i,i));sel.onchange=()=>{S.slot=+sel.value;save();render()};
 
+if(location.search.includes('code=')){try{history.replaceState(null,'',location.pathname)}catch(e){}}
 render();
 if(S.lk)poll();else if(S.want)runSetup();
 </script>
