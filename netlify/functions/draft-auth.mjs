@@ -6,6 +6,6 @@ export default async (req) => {
     "https://api.login.yahoo.com/oauth2/request_auth" +
     `?client_id=${encodeURIComponent(process.env.YAHOO_CLIENT_ID)}` +
     `&redirect_uri=${encodeURIComponent(callbackUrl(req))}` +
-    "&response_type=code&language=en-us";
+    "&response_type=code&scope=fspt-r&language=en-us";
   return new Response(null, { status: 302, headers: { Location: url } });
 };
