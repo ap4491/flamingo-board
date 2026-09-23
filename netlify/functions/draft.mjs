@@ -28,7 +28,11 @@ export default async (req) => {
   const y = async (path) => {
     const r = await fetch(`${API}/${path}?format=json`, { headers: { Authorization: `Bearer ${tok.access_token}` } });
     if (r.status === 401) throw Object.assign(new Error("auth"), { status: 401 });
-    if (!r.ok) throw Object.assign(new Error(`Yahoo returned ${r.status}`), { status: 502 });
+    if (!r.ok) {
+      const t = await r.text().catch(() => "");
+      const d = (t.match(/<description>([\s\S]*?)<\/description>/) || [])[1] || (() => { try { const j = JSON.parse(t); return j.error?.description || j.error?.message || ""; } catch { return t.slice(0, 160); } })();
+      throw Object.assign(new Error(`Yahoo returned ${r.status}${d ? ": " + d.trim() : ""}`), { status: 502 });
+    }
     return r.json();
   };
 
