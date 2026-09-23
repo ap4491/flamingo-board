@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Flamingo Classic 2026-27 Draft Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--ice:#EEF3F6;--board:#FFFFFF;--ink:#14202B;--muted:#5E6E7C;--line:#D3DDE4;--pink:#D9467A;--pinkbg:#FBE6EE;--blue:#2F5DA8;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ice:#0E1620;--board:#16212D;--ink:#E6EEF4;--muted:#93A3B1;--line:#26333F;--pink:#F06B9A;--pinkbg:#3A1E2B;--blue:#7AA2E3}}
+:root[data-theme="dark"]{--ice:#0E1620;--board:#16212D;--ink:#E6EEF4;--muted:#93A3B1;--line:#26333F;--pink:#F06B9A;--pinkbg:#3A1E2B;--blue:#7AA2E3}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--ice);color:var(--ink);font-family:Barlow,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:15px;line-height:1.35}
+.num,.cond{font-family:"Barlow Condensed","Arial Narrow",Barlow,sans-serif}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--ice);border-bottom:2px solid var(--blue);padding:10px 12px 8px}
+.wrap{max-width:760px;margin:0 auto}
+h1{margin:0;font-family:"Barlow Condensed","Arial Narrow",sans-serif;font-weight:700;font-size:26px;line-height:1;letter-spacing:.01em}
+h1 span{color:var(--pink)}
+.top{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.pick{font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:16px;color:var(--muted);text-align:right}
+.pick b{color:var(--ink)}
+.slots{display:flex;gap:6px;margin:8px 0 6px}
+.slot{flex:1;background:var(--board);border:1px solid var(--line);border-radius:6px;padding:4px 8px;display:flex;justify-content:space-between;align-items:baseline}
+.slot .cond{font-size:20px;font-weight:700}
+.slot.full .cond{color:var(--pink)}
+.slot small{color:var(--muted)}
+.ctrl{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.seg{display:flex;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.seg button{border:0;background:var(--board);color:var(--ink);font:600 14px Barlow,sans-serif;padding:7px 11px;cursor:pointer}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button[aria-pressed="true"]{background:var(--blue);color:#fff}
+input[type=search],select{font:15px Barlow,sans-serif;padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:var(--board);color:var(--ink);min-width:0}
+input[type=search]{flex:1 1 120px}
+.tiny{border:1px solid var(--line);background:var(--board);color:var(--ink);font:500 13px Barlow,sans-serif;padding:6px 9px;border-radius:6px;cursor:pointer}
+.best{margin-top:7px;font-size:14px;color:var(--muted)}
+.best b{color:var(--ink)}
+main{padding:6px 8px 40px}
+.row{display:grid;grid-template-columns:34px 1fr auto auto;gap:8px;align-items:center;background:var(--board);border:1px solid var(--line);border-left:4px solid var(--line);border-radius:6px;padding:7px 8px;margin:4px 0}
+.row.F{border-left-color:var(--blue)}.row.D{border-left-color:#3E9C8F}.row.G{border-left-color:#C28A2C}
+.row.taken{opacity:.38}
+.row.mine{background:var(--pinkbg);border-color:var(--pink)}
+.rk{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:20px;text-align:right;color:var(--muted)}
+.nm{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.meta{font-size:13px;color:var(--muted)}
+.flag{display:inline-block;font-size:11px;font-weight:600;padding:0 5px;border-radius:4px;border:1px solid var(--pink);color:var(--pink);margin-left:4px}
+.st{text-align:right;font-family:"Barlow Condensed",sans-serif;line-height:1.1}
+.st .p{font-size:20px;font-weight:700}
+.st .v{font-size:13px;color:var(--muted)}
+.acts{display:flex;gap:4px}
+.acts button{font:600 13px Barlow,sans-serif;border:1px solid var(--line);background:var(--ice);color:var(--ink);border-radius:5px;padding:7px 8px;cursor:pointer;min-width:48px}
+.acts button.m{border-color:var(--pink);color:var(--pink)}
+.row.taken .acts button,.row.mine .acts button{display:none}
+.row.taken .acts .u,.row.mine .acts .u{display:inline-block}
+.acts .u{display:none}
+.empty{text-align:center;color:var(--muted);padding:30px 10px}
+.team h2{font-family:"Barlow Condensed",sans-serif;font-size:20px;margin:14px 4px 4px}
+.note{font-size:13px;color:var(--muted);margin:14px 4px;max-width:70ch}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--pink);outline-offset:1px}
+@media (max-width:420px){.acts button{min-width:44px;padding:7px 6px}.row{gap:6px}}
+.sync{display:flex;gap:8px;align-items:center;margin-top:7px;font-size:13px;color:var(--muted);flex-wrap:wrap}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--line);flex:0 0 9px}
+.dot.ok{background:#2E9E5B}.dot.err{background:var(--pink)}
+.sync a{color:var(--blue);font-weight:600}
+.sync input{width:84px;font:14px Barlow,sans-serif;padding:4px 6px;border:1px solid var(--line);border-radius:6px;background:var(--board);color:var(--ink)}
+.row.off{border-left-color:var(--muted)}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <div class="top"><h1>Flamingo Classic <span>draft board</span></h1><div class="pick" id="pick"></div></div>
+  <div class="slots" id="slots"></div>
+  <div class="ctrl">
+    <div class="seg" id="posSeg">
+      <button data-p="ALL" aria-pressed="true">All</button><button data-p="F">F</button><button data-p="D">D</button><button data-p="G">G</button><button data-p="MINE">My team</button>
+    </div>
+    <input type="search" id="q" placeholder="Search player or team">
+  </div>
+  <div class="ctrl" style="margin-top:6px">
+    <label class="meta" for="slotSel">My slot</label>
+    <select id="slotSel"></select>
+    <button class="tiny" id="hideBtn">Show taken</button>
+    <button class="tiny" id="undoBtn">Undo</button>
+    <button class="tiny" id="resetBtn">Reset</button>
+  </div>
+  <div class="sync" id="sync"></div>
+  <div class="best" id="best"></div>
+</div></header>
+<main><div class="wrap" id="list"></div></main>
+<script>
+const DATA=
+[{"r":1,"n":"Connor McDavid","t":"EDM","p":"F","pts":135,"v":95,"pr":1,"f":""},{"r":2,"n":"Nathan MacKinnon","t":"COL","p":"F","pts":130,"v":90,"pr":2,"f":""},{"r":3,"n":"Nikita Kucherov","t":"TBL","p":"F","pts":125,"v":85,"pr":3,"f":""},{"r":4,"n":"Macklin Celebrini","t":"SJS","p":"F","pts":122,"v":82,"pr":4,"f":""},{"r":5,"n":"Leon Draisaitl","t":"EDM","p":"F","pts":117,"v":77,"pr":5,"f":""},{"r":6,"n":"David Pastrnak","t":"BOS","p":"F","pts":102,"v":62,"pr":6,"f":""},{"r":7,"n":"Cale Makar","t":"COL","p":"D","pts":87,"v":60,"pr":1,"f":""},{"r":8,"n":"Kirill Kaprizov","t":"MIN","p":"F","pts":99,"v":59,"pr":7,"f":""},{"r":9,"n":"Martin Necas","t":"COL","p":"F","pts":99,"v":59,"pr":8,"f":""},{"r":10,"n":"Evan Bouchard","t":"EDM","p":"D","pts":86,"v":59,"pr":2,"f":""},{"r":11,"n":"Quinn Hughes","t":"MIN","p":"D","pts":86,"v":59,"pr":3,"f":""},{"r":12,"n":"Jason Robertson","t":"DAL","p":"F","pts":98,"v":58,"pr":9,"f":""},{"r":13,"n":"Nick Suzuki","t":"MTL","p":"F","pts":98,"v":58,"pr":10,"f":""},{"r":14,"n":"Wyatt Johnston","t":"DAL","p":"F","pts":96,"v":56,"pr":11,"f":""},{"r":15,"n":"Mikko Rantanen","t":"DAL","p":"F","pts":96,"v":56,"pr":12,"f":""},{"r":16,"n":"Jack Eichel","t":"VGK","p":"F","pts":96,"v":56,"pr":13,"f":""},{"r":17,"n":"Zach Werenski","t":"CBJ","p":"D","pts":83,"v":56,"pr":4,"f":""},{"r":18,"n":"Kyle Connor","t":"WPG","p":"F","pts":93,"v":53,"pr":14,"f":""},{"r":19,"n":"Lane Hutson","t":"MTL","p":"D","pts":80,"v":53,"pr":5,"f":""},{"r":20,"n":"Cole Caufield","t":"MTL","p":"F","pts":92,"v":52,"pr":15,"f":""},{"r":21,"n":"Mark Scheifele","t":"WPG","p":"F","pts":92,"v":52,"pr":16,"f":""},{"r":22,"n":"Matt Boldy","t":"MIN","p":"F","pts":90,"v":50,"pr":17,"f":""},{"r":23,"n":"Sidney Crosby","t":"PIT","p":"F","pts":90,"v":50,"pr":18,"f":""},{"r":24,"n":"Artemi Panarin","t":"LAK","p":"F","pts":89,"v":49,"pr":19,"f":""},{"r":25,"n":"Mitch Marner","t":"VGK","p":"F","pts":89,"v":49,"pr":20,"f":""},{"r":26,"n":"William Nylander","t":"TOR","p":"F","pts":88,"v":48,"pr":21,"f":""},{"r":27,"n":"Andrei Vasilevskiy","t":"TBL","p":"G","pts":85.0,"v":48.0,"pr":1,"f":"","w":39,"so":3.5},{"r":28,"n":"Rasmus Dahlin","t":"BUF","p":"D","pts":75,"v":48,"pr":6,"f":""},{"r":29,"n":"Brady Tkachuk","t":"FLA","p":"F","pts":87,"v":47,"pr":22,"f":""},{"r":30,"n":"Matthew Tkachuk","t":"FLA","p":"F","pts":87,"v":47,"pr":23,"f":""},{"r":31,"n":"Clayton Keller","t":"UTA","p":"F","pts":87,"v":47,"pr":24,"f":""},{"r":32,"n":"Adam Fox","t":"NYR","p":"D","pts":74,"v":47,"pr":7,"f":""},{"r":33,"n":"Tim Stützle","t":"OTT","p":"F","pts":86,"v":46,"pr":25,"f":""},{"r":34,"n":"Auston Matthews","t":"TOR","p":"F","pts":86,"v":46,"pr":26,"f":""},{"r":35,"n":"Jake Oettinger","t":"DAL","p":"G","pts":82.8,"v":45.8,"pr":2,"f":"","w":38,"so":3.4},{"r":36,"n":"Brayden Point","t":"TBL","p":"F","pts":85,"v":45,"pr":27,"f":""},{"r":37,"n":"Roman Josi","t":"NSH","p":"D","pts":72,"v":45,"pr":8,"f":""},{"r":38,"n":"Matthew Schaefer","t":"NYI","p":"D","pts":72,"v":45,"pr":9,"f":""},{"r":39,"n":"Sam Reinhart","t":"FLA","p":"F","pts":84,"v":44,"pr":28,"f":""},{"r":40,"n":"Jack Hughes","t":"NJD","p":"F","pts":84,"v":44,"pr":29,"f":""},{"r":41,"n":"Tage Thompson","t":"BUF","p":"F","pts":83,"v":43,"pr":30,"f":""},{"r":42,"n":"Aleksander Barkov","t":"FLA","p":"F","pts":83,"v":43,"pr":31,"f":""},{"r":43,"n":"Jake Guentzel","t":"TBL","p":"F","pts":83,"v":43,"pr":32,"f":""},{"r":44,"n":"Dylan Guenther","t":"UTA","p":"F","pts":83,"v":43,"pr":33,"f":""},{"r":45,"n":"Erik Karlsson","t":"PIT","p":"D","pts":70,"v":43,"pr":10,"f":""},{"r":46,"n":"Leo Carlsson","t":"ANA","p":"F","pts":82,"v":42,"pr":34,"f":""},{"r":47,"n":"Brandon Hagel","t":"TBL","p":"F","pts":82,"v":42,"pr":35,"f":""},{"r":48,"n":"Sebastian Aho","t":"CAR","p":"F","pts":81,"v":41,"pr":36,"f":""},{"r":49,"n":"Connor Bedard","t":"CHI","p":"F","pts":81,"v":41,"pr":37,"f":"INJ"},{"r":50,"n":"Cutter Gauthier","t":"ANA","p":"F","pts":80,"v":40,"pr":38,"f":""},{"r":51,"n":"Adrian Kempe","t":"LAK","p":"F","pts":80,"v":40,"pr":39,"f":""},{"r":52,"n":"Filip Forsberg","t":"NSH","p":"F","pts":80,"v":40,"pr":40,"f":""},{"r":53,"n":"Jesper Bratt","t":"NJD","p":"F","pts":80,"v":40,"pr":41,"f":""},{"r":54,"n":"Robert Thomas","t":"STL","p":"F","pts":80,"v":40,"pr":42,"f":""},{"r":55,"n":"Logan Cooley","t":"UTA","p":"F","pts":80,"v":40,"pr":43,"f":""},{"r":56,"n":"Logan Thompson","t":"WSH","p":"G","pts":76.2,"v":39.2,"pr":3,"f":"","w":35,"so":3.1},{"r":57,"n":"Alex DeBrincat","t":"DET","p":"F","pts":79,"v":39,"pr":44,"f":""},{"r":58,"n":"Mika Zibanejad","t":"NYR","p":"F","pts":79,"v":39,"pr":45,"f":""},{"r":59,"n":"Darren Raddysh","t":"TOR","p":"D","pts":66,"v":39,"pr":11,"f":""},{"r":60,"n":"Mikhail Sergachev","t":"UTA","p":"D","pts":66,"v":39,"pr":12,"f":""},{"r":61,"n":"Roope Hintz","t":"DAL","p":"F","pts":78,"v":38,"pr":46,"f":""},{"r":62,"n":"Dylan Larkin","t":"DET","p":"F","pts":78,"v":38,"pr":47,"f":"INJ"},{"r":63,"n":"Jackson LaCombe","t":"ANA","p":"D","pts":65,"v":38,"pr":13,"f":""},{"r":64,"n":"Charlie McAvoy","t":"BOS","p":"D","pts":65,"v":38,"pr":14,"f":""},{"r":65,"n":"Miro Heiskanen","t":"DAL","p":"D","pts":65,"v":38,"pr":15,"f":""},{"r":66,"n":"Moritz Seider","t":"DET","p":"D","pts":65,"v":38,"pr":16,"f":""},{"r":67,"n":"Jake Sanderson","t":"OTT","p":"D","pts":65,"v":38,"pr":17,"f":""},{"r":68,"n":"John Carlson","t":"TBL","p":"D","pts":65,"v":38,"pr":18,"f":""},{"r":69,"n":"Jesper Wallstedt","t":"MIN","p":"G","pts":74.2,"v":37.2,"pr":4,"f":"","w":34,"so":3.1},{"r":70,"n":"Karel Vejmelka","t":"UTA","p":"G","pts":74.2,"v":37.2,"pr":5,"f":"","w":34,"so":3.1},{"r":71,"n":"Lucas Raymond","t":"DET","p":"F","pts":77,"v":37,"pr":48,"f":""},{"r":72,"n":"Drake Batherson","t":"OTT","p":"F","pts":77,"v":37,"pr":49,"f":""},{"r":73,"n":"Jakob Chychrun","t":"WSH","p":"D","pts":63,"v":36,"pr":19,"f":""},{"r":74,"n":"Juraj Slafkovsky","t":"MTL","p":"F","pts":75,"v":35,"pr":50,"f":""},{"r":75,"n":"Will Smith","t":"SJS","p":"F","pts":75,"v":35,"pr":51,"f":""},{"r":76,"n":"Jeremy Swayman","t":"BOS","p":"G","pts":72.0,"v":35.0,"pr":6,"f":"","w":33,"so":3.0},{"r":77,"n":"Brandon Bussi","t":"CAR","p":"G","pts":72.0,"v":35.0,"pr":7,"f":"","w":33,"so":3.0},{"r":78,"n":"Kirill Marchenko","t":"CBJ","p":"F","pts":74,"v":34,"pr":52,"f":""},{"r":79,"n":"Mark Stone","t":"VGK","p":"F","pts":74,"v":34,"pr":53,"f":""},{"r":80,"n":"Nikolaj Ehlers","t":"CAR","p":"F","pts":73,"v":33,"pr":54,"f":""},{"r":81,"n":"Jakub Dobes","t":"MTL","p":"G","pts":69.8,"v":32.8,"pr":8,"f":"","w":32,"so":2.9},{"r":82,"n":"Igor Shesterkin","t":"NYR","p":"G","pts":69.8,"v":32.8,"pr":9,"f":"","w":32,"so":2.9},{"r":83,"n":"Andrei Svechnikov","t":"CAR","p":"F","pts":72,"v":32,"pr":55,"f":""},{"r":84,"n":"Josh Morrissey","t":"WPG","p":"D","pts":59,"v":32,"pr":20,"f":""},{"r":85,"n":"Bo Horvat","t":"NYI","p":"F","pts":71,"v":31,"pr":56,"f":""},{"r":86,"n":"Gabriel Vilardi","t":"WPG","p":"F","pts":71,"v":31,"pr":57,"f":""},{"r":87,"n":"Ilya Sorokin","t":"NYI","p":"G","pts":67.6,"v":30.6,"pr":10,"f":"","w":31,"so":2.8},{"r":88,"n":"Lukas Dostal","t":"ANA","p":"G","pts":67.6,"v":30.6,"pr":11,"f":"","w":31,"so":2.8},{"r":89,"n":"Linus Ullmark","t":"OTT","p":"G","pts":67.6,"v":30.6,"pr":12,"f":"","w":31,"so":2.8},{"r":90,"n":"Ivan Demidov","t":"MTL","p":"F","pts":70,"v":30,"pr":58,"f":""},{"r":91,"n":"Steven Stamkos","t":"NSH","p":"F","pts":70,"v":30,"pr":59,"f":""},{"r":92,"n":"Dylan Holloway","t":"STL","p":"F","pts":70,"v":30,"pr":60,"f":""},{"r":93,"n":"John Tavares","t":"TOR","p":"F","pts":70,"v":30,"pr":61,"f":""},{"r":94,"n":"Alex Tuch","t":"WSH","p":"F","pts":70,"v":30,"pr":62,"f":""},{"r":95,"n":"Brock Faber","t":"MIN","p":"D","pts":57,"v":30,"pr":21,"f":""},{"r":96,"n":"Shea Theodore","t":"VGK","p":"D","pts":57,"v":30,"pr":22,"f":""},{"r":97,"n":"Morgan Geekie","t":"BOS","p":"F","pts":69,"v":29,"pr":63,"f":""},{"r":98,"n":"Ryan O'Reilly","t":"NSH","p":"F","pts":69,"v":29,"pr":64,"f":""},{"r":99,"n":"Evgeni Malkin","t":"PIT","p":"F","pts":69,"v":29,"pr":65,"f":""},{"r":100,"n":"Nick Schmaltz","t":"UTA","p":"F","pts":69,"v":29,"pr":66,"f":""},{"r":101,"n":"Jacob Markstrom","t":"FLA","p":"G","pts":65.4,"v":28.4,"pr":13,"f":"","w":30,"so":2.7},{"r":102,"n":"Beckett Sennecke","t":"ANA","p":"F","pts":68,"v":28,"pr":67,"f":""},{"r":103,"n":"Adam Fantilli","t":"CBJ","p":"F","pts":68,"v":28,"pr":68,"f":""},{"r":104,"n":"Nico Hischier","t":"NJD","p":"F","pts":68,"v":28,"pr":69,"f":""},{"r":105,"n":"Porter Martone","t":"PHI","p":"F","pts":68,"v":28,"pr":70,"f":""},{"r":106,"n":"Travis Konecny","t":"PHI","p":"F","pts":68,"v":28,"pr":71,"f":""},{"r":107,"n":"Dylan Strome","t":"WSH","p":"F","pts":68,"v":28,"pr":72,"f":""},{"r":108,"n":"Brandt Clarke","t":"LAK","p":"D","pts":55,"v":28,"pr":23,"f":""},{"r":109,"n":"Noah Dobson","t":"MTL","p":"D","pts":55,"v":28,"pr":24,"f":""},{"r":110,"n":"Victor Hedman","t":"TBL","p":"D","pts":55,"v":28,"pr":25,"f":""},{"r":111,"n":"Zach Hyman","t":"EDM","p":"F","pts":67,"v":27,"pr":73,"f":""},{"r":112,"n":"Jordan Kyrou","t":"WSH","p":"F","pts":67,"v":27,"pr":74,"f":""},{"r":113,"n":"Juuse Saros","t":"NSH","p":"G","pts":63.2,"v":26.2,"pr":14,"f":"","w":29,"so":2.6},{"r":114,"n":"Brock Nelson","t":"COL","p":"F","pts":66,"v":26,"pr":75,"f":""},{"r":115,"n":"Mathew Barzal","t":"NYI","p":"F","pts":66,"v":26,"pr":76,"f":"INJ"},{"r":116,"n":"Matthew Knies","t":"TOR","p":"F","pts":66,"v":26,"pr":77,"f":""},{"r":117,"n":"Tom Wilson","t":"WSH","p":"F","pts":66,"v":26,"pr":78,"f":""},{"r":118,"n":"Pavel Zacha","t":"BOS","p":"F","pts":65,"v":25,"pr":79,"f":""},{"r":119,"n":"Matt Duchene","t":"DAL","p":"F","pts":65,"v":25,"pr":80,"f":""},{"r":120,"n":"Ryan Nugent-Hopkins","t":"EDM","p":"F","pts":65,"v":25,"pr":81,"f":""},{"r":121,"n":"Quinton Byfield","t":"LAK","p":"F","pts":65,"v":25,"pr":82,"f":""},{"r":122,"n":"Pavel Dorofeyev","t":"NYR","p":"F","pts":65,"v":25,"pr":83,"f":""},{"r":123,"n":"William Eklund","t":"OTT","p":"F","pts":65,"v":25,"pr":84,"f":""},{"r":124,"n":"Shayne Gostisbehere","t":"CAR","p":"D","pts":52,"v":25,"pr":26,"f":""},{"r":125,"n":"Seth Jones","t":"FLA","p":"D","pts":52,"v":25,"pr":27,"f":""},{"r":126,"n":"Sam Bennett","t":"FLA","p":"F","pts":64,"v":24,"pr":85,"f":""},{"r":127,"n":"Trevor Zegras","t":"PHI","p":"F","pts":64,"v":24,"pr":86,"f":""},{"r":128,"n":"Jimmy Snuggerud","t":"STL","p":"F","pts":64,"v":24,"pr":87,"f":""},{"r":129,"n":"Scott Wedgewood","t":"COL","p":"G","pts":61.0,"v":24.0,"pr":15,"f":"","w":28,"so":2.5},{"r":130,"n":"Ukko-Pekka Luukkonen","t":"BUF","p":"G","pts":61.0,"v":24.0,"pr":16,"f":"","w":28,"so":2.5},{"r":131,"n":"Jake Allen","t":"NJD","p":"G","pts":61.0,"v":24.0,"pr":17,"f":"","w":28,"so":2.5},{"r":132,"n":"Sergei Bobrovsky","t":"TOR","p":"G","pts":61.0,"v":24.0,"pr":18,"f":"","w":28,"so":2.5},{"r":133,"n":"Cole Hutson","t":"WSH","p":"D","pts":51,"v":24,"pr":28,"f":""},{"r":134,"n":"Nazem Kadri","t":"COL","p":"F","pts":63,"v":23,"pr":88,"f":""},{"r":135,"n":"Bobby McMann","t":"SEA","p":"F","pts":63,"v":23,"pr":89,"f":""},{"r":136,"n":"Gavin McKenna","t":"TOR","p":"F","pts":63,"v":23,"pr":90,"f":""},{"r":137,"n":"Tomas Hertl","t":"VGK","p":"F","pts":63,"v":23,"pr":91,"f":""},{"r":138,"n":"Alex Ovechkin","t":"WSH","p":"F","pts":63,"v":23,"pr":92,"f":""},{"r":139,"n":"Bowen Byram","t":"CHI","p":"D","pts":50,"v":23,"pr":29,"f":""},{"r":140,"n":"Filip Hronek","t":"VAN","p":"D","pts":50,"v":23,"pr":30,"f":""},{"r":141,"n":"Anton Frondell","t":"CHI","p":"F","pts":62,"v":22,"pr":93,"f":""},{"r":142,"n":"J.T. Miller","t":"NYR","p":"F","pts":62,"v":22,"pr":94,"f":""},{"r":143,"n":"Egor Chinakhov","t":"PIT","p":"F","pts":62,"v":22,"pr":95,"f":""},{"r":144,"n":"Jared McCann","t":"SEA","p":"F","pts":62,"v":22,"pr":96,"f":""},{"r":145,"n":"Thomas Harley","t":"DAL","p":"D","pts":49,"v":22,"pr":31,"f":""},{"r":146,"n":"Rasmus Andersson","t":"VGK","p":"D","pts":49,"v":22,"pr":32,"f":""},{"r":147,"n":"Dan Vladar","t":"PHI","p":"G","pts":58.8,"v":21.8,"pr":19,"f":"","w":27,"so":2.4},{"r":148,"n":"Carter Hart","t":"VGK","p":"G","pts":58.8,"v":21.8,"pr":20,"f":"","w":27,"so":2.4},{"r":149,"n":"Ivar Stenberg","t":"SJS","p":"F","pts":61,"v":21,"pr":97,"f":""},{"r":150,"n":"Zach Benson","t":"BUF","p":"F","pts":61,"v":21,"pr":98,"f":""},{"r":151,"n":"Logan Stankoven","t":"CAR","p":"F","pts":61,"v":21,"pr":99,"f":""},{"r":152,"n":"Jackson Blake","t":"CAR","p":"F","pts":61,"v":21,"pr":100,"f":""},{"r":153,"n":"Brad Marchand","t":"FLA","p":"F","pts":61,"v":21,"pr":101,"f":"INJ"},{"r":154,"n":"Dylan Cozens","t":"OTT","p":"F","pts":61,"v":21,"pr":102,"f":""},{"r":155,"n":"Bryan Rust","t":"PIT","p":"F","pts":61,"v":21,"pr":103,"f":""},{"r":156,"n":"Rickard Rakell","t":"PIT","p":"F","pts":61,"v":21,"pr":104,"f":""},{"r":157,"n":"Brandon Montour","t":"SEA","p":"D","pts":48,"v":21,"pr":33,"f":""},{"r":158,"n":"JJ Peterka","t":"BOS","p":"F","pts":60,"v":20,"pr":105,"f":""},{"r":159,"n":"Josh Doan","t":"BUF","p":"F","pts":60,"v":20,"pr":106,"f":""},{"r":160,"n":"Joel Eriksson Ek","t":"MIN","p":"F","pts":60,"v":20,"pr":107,"f":""},{"r":161,"n":"MacKenzie Weegar","t":"UTA","p":"D","pts":47,"v":20,"pr":34,"f":""},{"r":162,"n":"Connor Hellebuyck","t":"WPG","p":"G","pts":56.6,"v":19.6,"pr":21,"f":"SUSP","w":26,"so":2.3},{"r":163,"n":"John Gibson","t":"DET","p":"G","pts":56.6,"v":19.6,"pr":22,"f":"","w":26,"so":2.3},{"r":164,"n":"Mikael Granlund","t":"ANA","p":"F","pts":59,"v":19,"pr":108,"f":""},{"r":165,"n":"Vincent Trocheck","t":"UTA","p":"F","pts":59,"v":19,"pr":109,"f":""},{"r":166,"n":"Elias Pettersson","t":"VAN","p":"F","pts":59,"v":19,"pr":110,"f":""},{"r":167,"n":"Aliaksei Protas","t":"WSH","p":"F","pts":59,"v":19,"pr":111,"f":""},{"r":168,"n":"Dougie Hamilton","t":"NJD","p":"D","pts":46,"v":19,"pr":35,"f":""},{"r":169,"n":"Vince Dunn","t":"SEA","p":"D","pts":46,"v":19,"pr":36,"f":""},{"r":170,"n":"Gabriel Landeskog","t":"COL","p":"F","pts":58,"v":18,"pr":112,"f":""},{"r":171,"n":"Timo Meier","t":"NJD","p":"F","pts":58,"v":18,"pr":113,"f":""},{"r":172,"n":"Anthony Cirelli","t":"TBL","p":"F","pts":58,"v":18,"pr":114,"f":""},{"r":173,"n":"Luke Hughes","t":"NJD","p":"D","pts":45,"v":18,"pr":37,"f":""},{"r":174,"n":"Philip Broberg","t":"STL","p":"D","pts":45,"v":18,"pr":38,"f":""},{"r":175,"n":"Mackenzie Blackwood","t":"COL","p":"G","pts":54.4,"v":17.4,"pr":23,"f":"","w":25,"so":2.2},{"r":176,"n":"Jet Greaves","t":"CBJ","p":"G","pts":54.4,"v":17.4,"pr":24,"f":"","w":25,"so":2.2},{"r":177,"n":"Yaroslav Askarov","t":"SJS","p":"G","pts":54.4,"v":17.4,"pr":25,"f":"","w":25,"so":2.2},{"r":178,"n":"Luke Evangelista","t":"NJD","p":"F","pts":57,"v":17,"pr":115,"f":""},{"r":179,"n":"Gabe Perreault","t":"NYR","p":"F","pts":57,"v":17,"pr":116,"f":""},{"r":180,"n":"Matvei Michkov","t":"PHI","p":"F","pts":57,"v":17,"pr":117,"f":""},{"r":181,"n":"Mason Marchment","t":"SJS","p":"F","pts":57,"v":17,"pr":118,"f":""},{"r":182,"n":"Thomas Chabot","t":"OTT","p":"D","pts":44,"v":17,"pr":39,"f":""},{"r":183,"n":"Travis Sanheim","t":"PHI","p":"D","pts":44,"v":17,"pr":40,"f":""},{"r":184,"n":"Josh Norris","t":"BUF","p":"F","pts":56,"v":16,"pr":119,"f":""},{"r":185,"n":"Artturi Lehkonen","t":"COL","p":"F","pts":56,"v":16,"pr":120,"f":""},{"r":186,"n":"Mattias Samuelsson","t":"BUF","p":"D","pts":43,"v":16,"pr":41,"f":""},{"r":187,"n":"Sam Malinski","t":"COL","p":"D","pts":43,"v":16,"pr":42,"f":""},{"r":188,"n":"Spencer Knight","t":"CHI","p":"G","pts":52.4,"v":15.4,"pr":26,"f":"","w":24,"so":2.2},{"r":189,"n":"Joel Hofer","t":"STL","p":"G","pts":52.4,"v":15.4,"pr":27,"f":"","w":24,"so":2.2},{"r":190,"n":"Frederik Andersen","t":"EDM","p":"G","pts":52.4,"v":15.4,"pr":28,"f":"INJ","w":24,"so":2.2},{"r":191,"n":"Elias Lindholm","t":"BOS","p":"F","pts":55,"v":15,"pr":121,"f":""},{"r":192,"n":"Ryan McLeod","t":"BUF","p":"F","pts":55,"v":15,"pr":122,"f":""},{"r":193,"n":"Patrick Kane","t":"CHI","p":"F","pts":55,"v":15,"pr":123,"f":""},{"r":194,"n":"Valeri Nichushkin","t":"CBJ","p":"F","pts":55,"v":15,"pr":124,"f":""},{"r":195,"n":"Tyler Seguin","t":"DAL","p":"F","pts":55,"v":15,"pr":125,"f":""},{"r":196,"n":"Carter Verhaeghe","t":"FLA","p":"F","pts":55,"v":15,"pr":126,"f":""},{"r":197,"n":"Mavrik Bourque","t":"NSH","p":"F","pts":55,"v":15,"pr":127,"f":""},{"r":198,"n":"Ryan Leonard","t":"WSH","p":"F","pts":55,"v":15,"pr":128,"f":""},{"r":199,"n":"Cole Perfetti","t":"WPG","p":"F","pts":55,"v":15,"pr":129,"f":""},{"r":200,"n":"Frank Nazar","t":"CHI","p":"F","pts":54,"v":14,"pr":130,"f":""},{"r":201,"n":"Anton Lundell","t":"FLA","p":"F","pts":54,"v":14,"pr":131,"f":""},{"r":202,"n":"Alexis Lafrenière","t":"NYR","p":"F","pts":54,"v":14,"pr":132,"f":""},{"r":203,"n":"Igor Chernyshov","t":"SJS","p":"F","pts":54,"v":14,"pr":133,"f":""},{"r":204,"n":"Collin Graf","t":"SJS","p":"F","pts":54,"v":14,"pr":134,"f":""},{"r":205,"n":"Jordan Eberle","t":"SEA","p":"F","pts":54,"v":14,"pr":135,"f":""},{"r":206,"n":"Brock Boeser","t":"VAN","p":"F","pts":54,"v":14,"pr":136,"f":""},{"r":207,"n":"Marco Rossi","t":"VAN","p":"F","pts":54,"v":14,"pr":137,"f":""},{"r":208,"n":"Pierre-Luc Dubois","t":"WSH","p":"F","pts":54,"v":14,"pr":138,"f":""},{"r":209,"n":"Arturs Silovs","t":"PIT","p":"G","pts":50.2,"v":13.2,"pr":29,"f":"","w":23,"so":2.1},{"r":210,"n":"Jack Quinn","t":"BUF","p":"F","pts":53,"v":13,"pr":139,"f":""},{"r":211,"n":"Matt Coronato","t":"CGY","p":"F","pts":53,"v":13,"pr":140,"f":""},{"r":212,"n":"Tyler Bertuzzi","t":"CHI","p":"F","pts":53,"v":13,"pr":141,"f":""},{"r":213,"n":"Charlie Coyle","t":"CBJ","p":"F","pts":53,"v":13,"pr":142,"f":""},{"r":214,"n":"Mats Zuccarello","t":"LAK","p":"F","pts":53,"v":13,"pr":143,"f":""},{"r":215,"n":"Michael Misa","t":"SJS","p":"F","pts":53,"v":13,"pr":144,"f":""},{"r":216,"n":"Chandler Stephenson","t":"SEA","p":"F","pts":53,"v":13,"pr":145,"f":""},{"r":217,"n":"Mason McTavish","t":"STL","p":"F","pts":53,"v":13,"pr":146,"f":""},{"r":218,"n":"Connor McMichael","t":"STL","p":"F","pts":53,"v":13,"pr":147,"f":""},{"r":219,"n":"Anders Lee","t":"UTA","p":"F","pts":53,"v":13,"pr":148,"f":""},{"r":220,"n":"Simon Nemec","t":"CGY","p":"D","pts":40,"v":13,"pr":43,"f":""},{"r":221,"n":"Mattias Ekholm","t":"EDM","p":"D","pts":40,"v":13,"pr":44,"f":""},{"r":222,"n":"Kris Letang","t":"PIT","p":"D","pts":40,"v":13,"pr":45,"f":""},{"r":223,"n":"Jason Zucker","t":"BUF","p":"F","pts":52,"v":12,"pr":149,"f":""},{"r":224,"n":"William Karlsson","t":"VGK","p":"F","pts":52,"v":12,"pr":150,"f":""},{"r":225,"n":"K'Andre Miller","t":"CAR","p":"D","pts":39,"v":12,"pr":46,"f":""},{"r":226,"n":"Tony DeAngelo","t":"NYI","p":"D","pts":39,"v":12,"pr":47,"f":""},{"r":227,"n":"Noah Hanifin","t":"VGK","p":"D","pts":39,"v":12,"pr":48,"f":""},{"r":228,"n":"Taylor Hall","t":"CAR","p":"F","pts":51,"v":11,"pr":151,"f":""},{"r":229,"n":"Victor Eklund","t":"NYI","p":"F","pts":51,"v":11,"pr":152,"f":""},{"r":230,"n":"Mackie Samoskevich","t":"SEA","p":"F","pts":51,"v":11,"pr":153,"f":""},{"r":231,"n":"Pavel Buchnevich","t":"STL","p":"F","pts":51,"v":11,"pr":154,"f":""},{"r":232,"n":"Ivan Barbashev","t":"VGK","p":"F","pts":51,"v":11,"pr":155,"f":""},{"r":233,"n":"Justin Faulk","t":"DET","p":"D","pts":38,"v":11,"pr":49,"f":""},{"r":234,"n":"Mike Matheson","t":"MTL","p":"D","pts":38,"v":11,"pr":50,"f":""},{"r":235,"n":"Jamie Drysdale","t":"PHI","p":"D","pts":38,"v":11,"pr":51,"f":""},{"r":236,"n":"Jaden Schwartz","t":"COL","p":"F","pts":50,"v":10,"pr":156,"f":""},{"r":237,"n":"Alex Laferriere","t":"LAK","p":"F","pts":50,"v":10,"pr":157,"f":""},{"r":238,"n":"Brayden Schenn","t":"NYI","p":"F","pts":50,"v":10,"pr":158,"f":""},{"r":239,"n":"Will Cuylle","t":"NYR","p":"F","pts":50,"v":10,"pr":159,"f":""},{"r":240,"n":"Shane Pinto","t":"OTT","p":"F","pts":50,"v":10,"pr":160,"f":""},{"r":241,"n":"Jake DeBrusk","t":"VAN","p":"F","pts":50,"v":10,"pr":161,"f":""},{"r":242,"n":"Brett Howden","t":"VGK","p":"F","pts":50,"v":10,"pr":162,"f":""},{"r":243,"n":"Alexander Nikishin","t":"CAR","p":"D","pts":37,"v":10,"pr":52,"f":""},{"r":244,"n":"Denton Mateychuk","t":"CBJ","p":"D","pts":37,"v":10,"pr":53,"f":""},{"r":245,"n":"Aaron Ekblad","t":"FLA","p":"D","pts":37,"v":10,"pr":54,"f":""},{"r":246,"n":"Dmitry Orlov","t":"SJS","p":"D","pts":37,"v":10,"pr":55,"f":""},{"r":247,"n":"Konsta Helenius","t":"BUF","p":"F","pts":49,"v":9,"pr":163,"f":""},{"r":248,"n":"Matt Savoie","t":"EDM","p":"F","pts":49,"v":9,"pr":164,"f":""},{"r":249,"n":"Ryan Hartman","t":"MIN","p":"F","pts":49,"v":9,"pr":165,"f":""},{"r":250,"n":"Alex Newhook","t":"MTL","p":"F","pts":49,"v":9,"pr":166,"f":""},{"r":251,"n":"Christian Dvorak","t":"PHI","p":"F","pts":49,"v":9,"pr":167,"f":""},{"r":252,"n":"Kaapo Kakko","t":"SEA","p":"F","pts":49,"v":9,"pr":168,"f":""},{"r":253,"n":"Chris Kreider","t":"MTL","p":"F","pts":49,"v":9,"pr":169,"f":""},{"r":254,"n":"Owen Power","t":"BUF","p":"D","pts":36,"v":9,"pr":56,"f":""},{"r":255,"n":"Darcy Kuemper","t":"LAK","p":"G","pts":45.8,"v":8.8,"pr":30,"f":"","w":21,"so":1.9},{"r":256,"n":"Jonathan Huberdeau","t":"CGY","p":"F","pts":48,"v":8,"pr":170,"f":""},{"r":257,"n":"Teuvo Teravainen","t":"CHI","p":"F","pts":48,"v":8,"pr":171,"f":""},{"r":258,"n":"Eetu Luostarinen","t":"FLA","p":"F","pts":48,"v":8,"pr":172,"f":""},{"r":259,"n":"Blake Coleman","t":"MIN","p":"F","pts":48,"v":8,"pr":173,"f":""},{"r":260,"n":"Anthony Mantha","t":"NJD","p":"F","pts":48,"v":8,"pr":174,"f":""},{"r":261,"n":"Noah Cates","t":"PHI","p":"F","pts":48,"v":8,"pr":175,"f":""},{"r":262,"n":"Tyson Foerster","t":"PHI","p":"F","pts":48,"v":8,"pr":176,"f":""},{"r":263,"n":"Barrett Hayton","t":"UTA","p":"F","pts":48,"v":8,"pr":177,"f":""},{"r":264,"n":"Olen Zellweger","t":"BUF","p":"D","pts":35,"v":8,"pr":57,"f":""},{"r":265,"n":"Zayne Parekh","t":"CGY","p":"D","pts":35,"v":8,"pr":58,"f":""},{"r":266,"n":"Devon Toews","t":"COL","p":"D","pts":35,"v":8,"pr":59,"f":""},{"r":267,"n":"Ryan Ufko","t":"NSH","p":"D","pts":35,"v":8,"pr":60,"f":""},{"r":268,"n":"Sean Durzi","t":"NYR","p":"D","pts":35,"v":8,"pr":61,"f":""},{"r":269,"n":"Neal Pionk","t":"WPG","p":"D","pts":35,"v":8,"pr":62,"f":""},{"r":270,"n":"Morgan Frost","t":"CGY","p":"F","pts":47,"v":7,"pr":178,"f":""},{"r":271,"n":"Jamie Benn","t":"DAL","p":"F","pts":47,"v":7,"pr":179,"f":""},{"r":272,"n":"Jonathan Marchessault","t":"NSH","p":"F","pts":47,"v":7,"pr":180,"f":""},{"r":273,"n":"Matty Beniers","t":"SEA","p":"F","pts":47,"v":7,"pr":181,"f":""},{"r":274,"n":"Mason Lohrei","t":"BOS","p":"D","pts":34,"v":7,"pr":63,"f":""},{"r":275,"n":"Gustav Forsling","t":"FLA","p":"D","pts":34,"v":7,"pr":64,"f":""},{"r":276,"n":"Jacob Trouba","t":"SJS","p":"D","pts":34,"v":7,"pr":65,"f":""},{"r":277,"n":"Cam Fowler","t":"STL","p":"D","pts":34,"v":7,"pr":66,"f":""},{"r":278,"n":"Dustin Wolf","t":"CGY","p":"G","pts":43.6,"v":6.6,"pr":31,"f":"","w":20,"so":1.8},{"r":279,"n":"Akira Schmid","t":"FLA","p":"G","pts":43.6,"v":6.6,"pr":32,"f":"","w":20,"so":1.8},{"r":280,"n":"Joey Daccord","t":"SEA","p":"G","pts":43.6,"v":6.6,"pr":33,"f":"","w":20,"so":1.8},{"r":281,"n":"Tristan Jarry / Devon Levi","t":"EDM","p":"G","pts":43.6,"v":6.6,"pr":34,"f":"SPLIT","w":20,"so":1.8},{"r":282,"n":"Matvei Gridin","t":"CGY","p":"F","pts":46,"v":6,"pr":182,"f":""},{"r":283,"n":"Conor Garland","t":"CBJ","p":"F","pts":46,"v":6,"pr":183,"f":""},{"r":284,"n":"Sean Monahan","t":"CBJ","p":"F","pts":46,"v":6,"pr":184,"f":""},{"r":285,"n":"Oliver Kapanen","t":"MTL","p":"F","pts":46,"v":6,"pr":185,"f":""},{"r":286,"n":"Zach Bolduc","t":"MTL","p":"F","pts":46,"v":6,"pr":186,"f":""},{"r":287,"n":"Kyle Palmieri","t":"NYI","p":"F","pts":46,"v":6,"pr":187,"f":""},{"r":288,"n":"Calum Ritchie","t":"NYI","p":"F","pts":46,"v":6,"pr":188,"f":""},{"r":289,"n":"Sam Rinzel","t":"CHI","p":"D","pts":33,"v":6,"pr":67,"f":""},{"r":290,"n":"Brent Burns","t":"COL","p":"D","pts":33,"v":6,"pr":68,"f":""},{"r":291,"n":"Jake Walman","t":"EDM","p":"D","pts":33,"v":6,"pr":69,"f":""},{"r":292,"n":"Jordan Spence","t":"OTT","p":"D","pts":33,"v":6,"pr":70,"f":""},{"r":293,"n":"Colton Parayko","t":"STL","p":"D","pts":33,"v":6,"pr":71,"f":""},{"r":294,"n":"J.J. Moser","t":"TBL","p":"D","pts":33,"v":6,"pr":72,"f":""},{"r":295,"n":"Zeev Buium","t":"VAN","p":"D","pts":33,"v":6,"pr":73,"f":""},{"r":296,"n":"Casey Mittelstadt","t":"BOS","p":"F","pts":45,"v":5,"pr":189,"f":""},{"r":297,"n":"Ryan Strome","t":"CGY","p":"F","pts":45,"v":5,"pr":190,"f":""},{"r":298,"n":"Roman Kantserov","t":"CHI","p":"F","pts":45,"v":5,"pr":191,"f":""},{"r":299,"n":"Cole Sillinger","t":"CBJ","p":"F","pts":45,"v":5,"pr":192,"f":""},{"r":300,"n":"Marco Kasper","t":"DET","p":"F","pts":45,"v":5,"pr":193,"f":""},{"r":301,"n":"Danila Yurov","t":"MIN","p":"F","pts":45,"v":5,"pr":194,"f":""},{"r":302,"n":"Jake Evans","t":"MTL","p":"F","pts":45,"v":5,"pr":195,"f":""},{"r":303,"n":"Dawson Mercer","t":"NJD","p":"F","pts":45,"v":5,"pr":196,"f":""},{"r":304,"n":"Oliver Bjorkstrand","t":"NYR","p":"F","pts":45,"v":5,"pr":197,"f":""},{"r":305,"n":"Fabian Zetterlund","t":"OTT","p":"F","pts":45,"v":5,"pr":198,"f":""},{"r":306,"n":"Ben Kindel","t":"PIT","p":"F","pts":45,"v":5,"pr":199,"f":""},{"r":307,"n":"Alexander Wennberg","t":"SJS","p":"F","pts":45,"v":5,"pr":200,"f":""},{"r":308,"n":"Jake Neighbours","t":"STL","p":"F","pts":45,"v":5,"pr":201,"f":""},{"r":309,"n":"Boone Jenner","t":"WSH","p":"F","pts":45,"v":5,"pr":202,"f":""},{"r":310,"n":"Jaccob Slavin","t":"CAR","p":"D","pts":32,"v":5,"pr":74,"f":""},{"r":311,"n":"Sean Walker","t":"CAR","p":"D","pts":32,"v":5,"pr":75,"f":""},{"r":312,"n":"Damon Severson","t":"CBJ","p":"D","pts":32,"v":5,"pr":76,"f":""},{"r":313,"n":"Simon Edvinsson","t":"DET","p":"D","pts":32,"v":5,"pr":77,"f":""},{"r":314,"n":"Vladislav Gavrikov","t":"NYR","p":"D","pts":32,"v":5,"pr":78,"f":""},{"r":315,"n":"Darnell Nurse","t":"SJS","p":"D","pts":32,"v":5,"pr":79,"f":""},{"r":316,"n":"Morgan Rielly","t":"TOR","p":"D","pts":32,"v":5,"pr":80,"f":""},{"r":317,"n":"Pyotr Kochetkov","t":"CAR","p":"G","pts":41.4,"v":4.4,"pr":35,"f":"","w":19,"so":1.7},{"r":318,"n":"Ryan Donato","t":"CHI","p":"F","pts":44,"v":4,"pr":203,"f":""},{"r":319,"n":"Kent Johnson","t":"CBJ","p":"F","pts":44,"v":4,"pr":204,"f":""},{"r":320,"n":"Vasily Podkolzin","t":"EDM","p":"F","pts":44,"v":4,"pr":205,"f":""},{"r":321,"n":"Matthew Wood","t":"NSH","p":"F","pts":44,"v":4,"pr":206,"f":""},{"r":322,"n":"Emil Heineman","t":"NYI","p":"F","pts":44,"v":4,"pr":207,"f":""},{"r":323,"n":"Andrei Kuzmenko","t":"PIT","p":"F","pts":44,"v":4,"pr":208,"f":""},{"r":324,"n":"Tyler Toffoli","t":"SJS","p":"F","pts":44,"v":4,"pr":209,"f":""},{"r":325,"n":"Jack Roslovic","t":"TOR","p":"F","pts":44,"v":4,"pr":210,"f":""},{"r":326,"n":"Lawson Crouse","t":"UTA","p":"F","pts":44,"v":4,"pr":211,"f":""},{"r":327,"n":"Ilya Protas","t":"WSH","p":"F","pts":44,"v":4,"pr":212,"f":""},{"r":328,"n":"Artyom Levshunov","t":"CHI","p":"D","pts":31,"v":4,"pr":81,"f":""},{"r":329,"n":"Ivan Provorov","t":"CBJ","p":"D","pts":31,"v":4,"pr":82,"f":""},{"r":330,"n":"Esa Lindell","t":"DAL","p":"D","pts":31,"v":4,"pr":83,"f":""},{"r":331,"n":"Drew Doughty","t":"LAK","p":"D","pts":31,"v":4,"pr":84,"f":""},{"r":332,"n":"Nicolas Hague","t":"NSH","p":"D","pts":31,"v":4,"pr":85,"f":""},{"r":333,"n":"Ryan Pulock","t":"NYI","p":"D","pts":31,"v":4,"pr":86,"f":""},{"r":334,"n":"Jiri Kulich","t":"BUF","p":"F","pts":43,"v":3,"pr":213,"f":""},{"r":335,"n":"Erik Haula","t":"LAK","p":"F","pts":43,"v":3,"pr":214,"f":""},{"r":336,"n":"Ross Colton","t":"NSH","p":"F","pts":43,"v":3,"pr":215,"f":""},{"r":337,"n":"Arseny Gritsyuk","t":"NJD","p":"F","pts":43,"v":3,"pr":216,"f":""},{"r":338,"n":"Ridly Greig","t":"OTT","p":"F","pts":43,"v":3,"pr":217,"f":""},{"r":339,"n":"Gage Goncalves","t":"TBL","p":"F","pts":43,"v":3,"pr":218,"f":""},{"r":340,"n":"Pavel Mintyukov","t":"ANA","p":"D","pts":30,"v":3,"pr":87,"f":""},{"r":341,"n":"Hampus Lindholm","t":"BOS","p":"D","pts":30,"v":3,"pr":88,"f":""},{"r":342,"n":"Josh Manson","t":"COL","p":"D","pts":30,"v":3,"pr":89,"f":""},{"r":343,"n":"Alexander Romanov","t":"NYI","p":"D","pts":30,"v":3,"pr":90,"f":""},{"r":344,"n":"Carter Yakemchuk","t":"OTT","p":"D","pts":30,"v":3,"pr":91,"f":""},{"r":345,"n":"Samuel Girard","t":"PIT","p":"D","pts":30,"v":3,"pr":92,"f":""},{"r":346,"n":"Sam Dickinson","t":"SJS","p":"D","pts":30,"v":3,"pr":93,"f":""},{"r":347,"n":"Logan Mailloux","t":"STL","p":"D","pts":30,"v":3,"pr":94,"f":""},{"r":348,"n":"Oliver Ekman-Larsson","t":"TOR","p":"D","pts":30,"v":3,"pr":95,"f":""},{"r":349,"n":"Martin Fehérváry","t":"WSH","p":"D","pts":30,"v":3,"pr":96,"f":""},{"r":350,"n":"Alex Lyon / Colten Ellis","t":"BUF","p":"G","pts":39.2,"v":2.2,"pr":36,"f":"SPLIT","w":18,"so":1.6},{"r":351,"n":"Adin Hill","t":"VGK","p":"G","pts":39.2,"v":2.2,"pr":37,"f":"","w":18,"so":1.6},{"r":352,"n":"Fraser Minten","t":"BOS","p":"F","pts":42,"v":2,"pr":219,"f":""},{"r":353,"n":"Joel Farabee","t":"CGY","p":"F","pts":42,"v":2,"pr":220,"f":""},{"r":354,"n":"Nick Lardis","t":"CHI","p":"F","pts":42,"v":2,"pr":221,"f":""},{"r":355,"n":"Nicolas Roy","t":"COL","p":"F","pts":42,"v":2,"pr":222,"f":""},{"r":356,"n":"Justin Hryckowian","t":"DAL","p":"F","pts":42,"v":2,"pr":223,"f":""},{"r":357,"n":"Viktor Arvidsson","t":"DET","p":"F","pts":42,"v":2,"pr":224,"f":""},{"r":358,"n":"Trevor Moore","t":"LAK","p":"F","pts":42,"v":2,"pr":225,"f":""},{"r":359,"n":"Claude Giroux","t":"OTT","p":"F","pts":42,"v":2,"pr":226,"f":""},{"r":360,"n":"Justin Brazeau","t":"PIT","p":"F","pts":42,"v":2,"pr":227,"f":""},{"r":361,"n":"Shane Wright","t":"SEA","p":"F","pts":42,"v":2,"pr":228,"f":""},{"r":362,"n":"Dalibor Dvorsky","t":"STL","p":"F","pts":42,"v":2,"pr":229,"f":""},{"r":363,"n":"Linus Karlsson","t":"VAN","p":"F","pts":42,"v":2,"pr":230,"f":""},{"r":364,"n":"Alex Killorn","t":"ANA","p":"F","pts":41,"v":1,"pr":231,"f":""},{"r":365,"n":"James Hagens","t":"BOS","p":"F","pts":41,"v":1,"pr":232,"f":""},{"r":366,"n":"Mikael Backlund","t":"CGY","p":"F","pts":41,"v":1,"pr":233,"f":""},{"r":367,"n":"Dmitri Voronkov","t":"CBJ","p":"F","pts":41,"v":1,"pr":234,"f":""},{"r":368,"n":"Emmitt Finnie","t":"DET","p":"F","pts":41,"v":1,"pr":235,"f":""},{"r":369,"n":"Bobby Brink","t":"MIN","p":"F","pts":41,"v":1,"pr":236,"f":""},{"r":370,"n":"Connor Brown","t":"NJD","p":"F","pts":41,"v":1,"pr":237,"f":""},{"r":371,"n":"Tommy Novak","t":"PIT","p":"F","pts":41,"v":1,"pr":238,"f":""},{"r":372,"n":"Eeli Tolvanen","t":"NYR","p":"F","pts":41,"v":1,"pr":239,"f":""},{"r":373,"n":"Frank Vatrano","t":"ANA","p":"F","pts":40,"v":0,"pr":240,"f":""},{"r":374,"n":"Peyton Krebs","t":"BUF","p":"F","pts":40,"v":0,"pr":241,"f":""},{"r":375,"n":"Parker Kelly","t":"COL","p":"F","pts":40,"v":0,"pr":242,"f":""},{"r":376,"n":"Sam Steel","t":"DAL","p":"F","pts":40,"v":0,"pr":243,"f":""},{"r":377,"n":"Andrew Copp","t":"DET","p":"F","pts":40,"v":0,"pr":244,"f":""},{"r":378,"n":"Kasperi Kapanen","t":"EDM","p":"F","pts":40,"v":0,"pr":245,"f":""},{"r":379,"n":"Maxim Shabanov","t":"MIN","p":"F","pts":40,"v":0,"pr":246,"f":""},{"r":380,"n":"Alexandre Texier","t":"MTL","p":"F","pts":40,"v":0,"pr":247,"f":""},{"r":381,"n":"Jack Drury","t":"NSH","p":"F","pts":40,"v":0,"pr":248,"f":""},{"r":382,"n":"Evan Rodrigues","t":"NJD","p":"F","pts":40,"v":0,"pr":249,"f":""},{"r":383,"n":"Matias Maccelli","t":"NYI","p":"F","pts":40,"v":0,"pr":250,"f":""},{"r":384,"n":"Andre Burakovsky","t":"OTT","p":"F","pts":40,"v":0,"pr":251,"f":""},{"r":385,"n":"Sean Couturier","t":"PHI","p":"F","pts":40,"v":0,"pr":252,"f":""},{"r":386,"n":"Nicholas Robertson","t":"PIT","p":"F","pts":40,"v":0,"pr":253,"f":""},{"r":387,"n":"Kiefer Sherwood","t":"SJS","p":"F","pts":40,"v":0,"pr":254,"f":""},{"r":388,"n":"Berkly Catton","t":"SEA","p":"F","pts":40,"v":0,"pr":255,"f":""},{"r":389,"n":"Pius Suter","t":"STL","p":"F","pts":40,"v":0,"pr":256,"f":""},{"r":390,"n":"Yanni Gourde","t":"TBL","p":"F","pts":40,"v":0,"pr":257,"f":""},{"r":391,"n":"Easton Cowan","t":"TOR","p":"F","pts":40,"v":0,"pr":258,"f":""},{"r":392,"n":"Victor Olofsson","t":"VGK","p":"F","pts":40,"v":0,"pr":259,"f":""},{"r":393,"n":"Vladislav Namestnikov","t":"WPG","p":"F","pts":40,"v":0,"pr":260,"f":""},{"r":394,"n":"Jacob Fowler / Sam Montembeault","t":"MTL","p":"G","pts":37.0,"v":0.0,"pr":38,"f":"SPLIT","w":17,"so":1.5},{"r":395,"n":"Sergei Murashov","t":"PIT","p":"G","pts":37.0,"v":0.0,"pr":39,"f":"","w":17,"so":1.5},{"r":396,"n":"Alex Nedeljkovic / Eric Comrie","t":"SJS","p":"G","pts":37.0,"v":0.0,"pr":40,"f":"SPLIT","w":17,"so":1.5},{"r":397,"n":"Jordan Binnington","t":"STL","p":"G","pts":37.0,"v":0.0,"pr":41,"f":"","w":17,"so":1.5},{"r":398,"n":"Joseph Woll","t":"PHI","p":"G","pts":37.0,"v":0.0,"pr":42,"f":"","w":17,"so":1.5},{"r":399,"n":"Anton Forsberg","t":"LAK","p":"G","pts":34.8,"v":-2.2,"pr":43,"f":"","w":16,"so":1.4},{"r":400,"n":"Anthony Stolarz","t":"TOR","p":"G","pts":34.8,"v":-2.2,"pr":44,"f":"","w":16,"so":1.4},{"r":401,"n":"Nico Daws","t":"NJD","p":"G","pts":34.8,"v":-2.2,"pr":45,"f":"","w":16,"so":1.4},{"r":402,"n":"Charlie Lindgren","t":"WSH","p":"G","pts":32.6,"v":-4.4,"pr":46,"f":"","w":15,"so":1.3},{"r":403,"n":"Thatcher Demko","t":"VAN","p":"G","pts":30.6,"v":-6.4,"pr":47,"f":"","w":14,"so":1.3},{"r":404,"n":"Daniil Tarasov","t":"DET","p":"G","pts":30.6,"v":-6.4,"pr":48,"f":"","w":14,"so":1.3},{"r":405,"n":"Elvis Merzlikins","t":"CBJ","p":"G","pts":28.4,"v":-8.6,"pr":49,"f":"","w":13,"so":1.2},{"r":406,"n":"Filip Gustavsson / Calvin Pickard","t":"MIN","p":"G","pts":28.4,"v":-8.6,"pr":50,"f":"SPLIT","w":13,"so":1.2},{"r":407,"n":"Samuel Ersson / Leevi Merilainen","t":"PHI","p":"G","pts":26.2,"v":-10.8,"pr":51,"f":"SPLIT","w":12,"so":1.1},{"r":408,"n":"Casey DeSmith","t":"DAL","p":"G","pts":24.0,"v":-13.0,"pr":52,"f":"","w":11,"so":1.0},{"r":409,"n":"Kevin Lankinen","t":"VAN","p":"G","pts":24.0,"v":-13.0,"pr":53,"f":"","w":11,"so":1.0},{"r":410,"n":"Sebastian Cossa","t":"UTA","p":"G","pts":24.0,"v":-13.0,"pr":54,"f":"","w":11,"so":1.0}];
+const NEED={F:12,D:6,G:2},TEAMS=20,KEY='flamingo-board-v2',NKEY='flamingo-names-v1',FN='/.netlify/functions/draft';
+let S={st:{},hist:[],slot:1,hide:true,pos:'ALL',live:true,lid:'58705',lk:null,tk:null,lname:null,want:false};
+let NAMES={};
+try{const s=JSON.parse(localStorage.getItem(KEY)||'null');if(s&&s.st)S=Object.assign(S,s)}catch(e){}
+try{NAMES=JSON.parse(localStorage.getItem(NKEY)||'{}')||{}}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+const saveNames=()=>{try{localStorage.setItem(NKEY,JSON.stringify(NAMES))}catch(e){}};
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const norm=s=>String(s).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z]/g,'');
+
+/* name index: full-name match, then unique first-initial + last-name match */
+const byN={},FULL={},LAST={};
+DATA.forEach(x=>{byN[x.n]=x;x.n.split(' / ').forEach(part=>{FULL[norm(part)]=x.n;const w=part.trim().split(/\s+/);const k=norm(w[w.length-1])+'|'+norm(w[0])[0];(LAST[k]=LAST[k]||[]).push(x.n)})});
+function matchName(full){
+  if(FULL[norm(full)])return FULL[norm(full)];
+  const w=String(full).trim().split(/\s+/);const c=LAST[norm(w[w.length-1])+'|'+(norm(w[0])[0]||'')];
+  return c&&c.length===1?c[0]:null;
+}
+const posOf=p=>{const f=String(p).split(',')[0].trim();return f==='D'?'D':f==='G'?'G':'F'};
+
+/* live sync state (not persisted; rebuilt each poll) */
+let SY={map:{},off:[],count:0,ok:null,msg:'',warn:'',at:0,busy:false};
+const status=n=>SY.map[n]||S.st[n];
+
+function counts(){
+  const c={F:0,D:0,G:0};
+  DATA.forEach(x=>{if(status(x.n)==='m')c[x.p]++});
+  SY.off.forEach(o=>{if(o.mine)c[o.p]++});
+  return c;
+}
+function currentPick(){
+  let local=0;DATA.forEach(x=>{if(status(x.n))local++});
+  return Math.max(SY.count,local+SY.off.length)+1;
+}
+function myPicks(){const a=[];for(let r=1;r<=20;r++){const i=r%2?S.slot:TEAMS+1-S.slot;a.push((r-1)*TEAMS+i)}return a}
+
+function header(){
+  const c=counts(),cur=currentPick(),rd=Math.ceil(cur/TEAMS),nx=myPicks().find(p=>p>=cur);
+  $('pick').innerHTML=cur>400?'Draft complete':`Pick <b>${cur}</b>, round ${rd}<br>${nx?(nx===cur?'<b style="color:var(--pink)">You are up</b>':`Your next: #${nx} (${nx-cur} away)`):''}`;
+  $('slots').innerHTML=['F','D','G'].map(p=>`<div class="slot ${c[p]>=NEED[p]?'full':''}"><small>${p}</small><span class="cond">${c[p]}/${NEED[p]}</span></div>`).join('');
+  const open=['F','D','G'].filter(p=>c[p]<NEED[p]);
+  const b=DATA.find(x=>!status(x.n)&&open.includes(x.p));
+  $('best').innerHTML=b?`Best available for your open slots: <b>${esc(b.n)}</b> (${b.p}, ${b.t}), value +${b.v}`:'';
+  syncBar();
+}
+function syncBar(){
+  const el=$('sync');
+  if(!S.lk){
+    el.innerHTML=`<span class="dot${SY.ok===false?' err':''}"></span><span>${SY.msg?esc(SY.msg):'Live sync off.'}</span><label for="lid">League ID</label><input id="lid" inputmode="numeric" value="${esc(S.lid)}"><button class="tiny" id="connBtn">${SY.busy?'Connecting':'Connect Yahoo'}</button>`;
+    $('connBtn').onclick=()=>{S.lid=$('lid').value.trim();S.want=true;save();runSetup()};
+    return;
+  }
+  const ago=SY.at?Math.round((Date.now()-SY.at)/1000):null;
+  const txt=SY.ok===false?esc(SY.msg):`Live from Yahoo${S.lname?' ('+esc(S.lname)+')':''}: ${SY.count} picks${ago!=null?`, updated ${ago}s ago`:''}${SY.off.length?`, ${SY.off.length} not on board`:''}.${esc(SY.warn)}`;
+  el.innerHTML=`<span class="dot ${SY.ok===false?'err':S.live&&SY.ok?'ok':''}"></span><span>${S.live?txt:'Sync paused.'}</span><button class="tiny" id="liveBtn">${S.live?'Pause':'Resume'}</button><button class="tiny" id="discBtn">Disconnect</button>`;
+  $('liveBtn').onclick=()=>{S.live=!S.live;save();if(S.live)poll();header()};
+  $('discBtn').onclick=()=>{S.lk=S.tk=S.lname=null;S.want=false;SY={map:{},off:[],count:0,ok:null,msg:'',warn:'',at:0,busy:false};save();render()};
+}
+
+function row(x){
+  const s=status(x.n),syn=!!SY.map[x.n];
+  const cls=`row ${x.p}${s==='t'?' taken':''}${s==='m'?' mine':''}`;
+  const fl=x.f?`<span class="flag">${x.f==='SPLIT'?'Split job':x.f==='SUSP'?'Suspended':'Injured'}</span>`:'';
+  const meta=x.p==='G'?`${x.t} G${x.pr}, ${x.w} W, ${x.so} SO`:`${x.t} ${x.p}${x.pr}`;
+  const undo=syn?'':`<button class="u" aria-label="Undo ${esc(x.n)}">Undo</button>`;
+  return `<div class="${cls}" data-n="${esc(x.n)}"><div class="rk">${x.r}</div><div style="min-width:0"><div class="nm">${esc(x.n)}${fl}</div><div class="meta">${meta}</div></div><div class="st"><div class="p">${x.pts}</div><div class="v">+${x.v}</div></div><div class="acts"><button class="t" aria-label="Mark ${esc(x.n)} taken">Taken</button><button class="m" aria-label="Draft ${esc(x.n)} to my team">Mine</button>${undo}</div></div>`;
+}
+function offRow(o){
+  return `<div class="row off mine"><div class="rk">-</div><div style="min-width:0"><div class="nm">${esc(o.n)}</div><div class="meta">${esc(o.team)} ${esc(o.pos)}, not on board</div></div><div class="st"><div class="p">-</div></div><div class="acts"></div></div>`;
+}
+const NOTE=`<p class="note">Rank is by value over replacement: projected points minus the last starter drafted at that position (240th F = 40, 120th D = 27, 40th G = 37). Skater points are NHL.com 2026-27 projections (goals + assists). Goalie points are projected wins x2 plus estimated shutouts x2 (9% of wins). Beyond this list, defencemen 97-120 are unranked; take the best available D with a top-4 or power-play role.</p>`;
+
+function render(){
+  header();
+  const q=$('q').value.trim().toLowerCase();
+  document.querySelectorAll('#posSeg button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.p===S.pos));
+  $('hideBtn').textContent=S.hide?'Show taken':'Hide taken';
+  $('slotSel').value=S.slot;
+  if(S.pos==='MINE'){
+    const mine=DATA.filter(x=>status(x.n)==='m');let h='',tot=0;
+    ['F','D','G'].forEach(p=>{
+      const a=mine.filter(x=>x.p===p),off=SY.off.filter(o=>o.mine&&o.p===p);
+      const t=a.reduce((s,x)=>s+x.pts,0);tot+=t;
+      h+=`<div class="team"><h2>${p==='F'?'Forwards':p==='D'?'Defence':'Goalies'} ${a.length+off.length}/${NEED[p]}, ${Math.round(t)} pts</h2>${a.map(row).join('')}${off.map(offRow).join('')}${a.length+off.length?'':'<div class="empty">None yet</div>'}</div>`;
+    });
+    h+=`<p class="note">Projected team total: <b>${Math.round(tot)}</b> fantasy points (players not on the board count as 0).</p>`;
+    $('list').innerHTML=h;return;
+  }
+  const a=DATA.filter(x=>{const s=status(x.n);return (S.pos==='ALL'||x.p===S.pos)&&(!S.hide||!s||s==='m')&&(!q||x.n.toLowerCase().includes(q)||x.t.toLowerCase()===q)});
+  $('list').innerHTML=a.length?a.map(row).join('')+NOTE:'<div class="empty">No players match. Clear the search or switch position.</div>';
+}
+
+/* ---------- Yahoo sync ---------- */
+async function api(qs){
+  const r=await fetch(`${FN}?${qs}`,{credentials:'same-origin',cache:'no-store'});
+  const j=await r.json().catch(()=>({error:`HTTP ${r.status}`}));
+  if(r.status===401)throw Object.assign(new Error('auth'),{auth:true});
+  if(!r.ok)throw Object.assign(new Error(j.error||`HTTP ${r.status}`),{data:j});
+  return j;
+}
+async function runSetup(){
+  SY.busy=true;SY.msg='Connecting to Yahoo';header();
+  try{
+    const j=await api(`op=setup&league_id=${encodeURIComponent(S.lid)}`);
+    S.lk=j.league_key;S.tk=j.team_key;S.lname=j.league_name;S.want=false;save();
+    SY.ok=true;SY.msg='';SY.warn=j.team_key?'':' No team of yours found in this league, so your picks sync as Taken. Use Mine manually.';
+    await poll();
+  }catch(e){
+    if(e.auth){location.href='/.netlify/functions/draft-auth';return}
+    SY.ok=false;SY.msg=e.message+(e.data&&e.data.leagues&&e.data.leagues.length?` Your NHL leagues: ${e.data.leagues.map(l=>l.id+' '+l.name).join(', ')}`:'');
+  }finally{SY.busy=false;render()}
+}
+let polling=false;
+async function poll(){
+  if(!S.lk||polling)return;polling=true;
+  try{
+    const {picks}=await api(`op=draft&lk=${encodeURIComponent(S.lk)}`);
+    const done=picks.filter(p=>p.player_key);
+    const need=[...new Set(done.map(p=>p.player_key).filter(k=>!NAMES[k]))];
+    for(let i=0;i<need.length;i+=25){
+      const {players}=await api(`op=players&lk=${encodeURIComponent(S.lk)}&keys=${need.slice(i,i+25).join(',')}`);
+      players.forEach(p=>{NAMES[p.player_key]={n:p.name,pos:p.pos,team:p.team}});
+    }
+    if(need.length)saveNames();
+    const map={},off=[];
+    done.forEach(p=>{
+      const info=NAMES[p.player_key];if(!info)return;
+      const mine=!!S.tk&&p.team_key===S.tk;
+      const bn=matchName(info.n);
+      if(bn){if(map[bn]!=='m')map[bn]=mine?'m':'t'}
+      else off.push({n:info.n,pos:info.pos,team:info.team,p:posOf(info.pos),mine});
+    });
+    if(S.tk){const r1=picks.find(p=>p.round===1&&p.team_key===S.tk);if(r1&&r1.pick>=1&&r1.pick<=TEAMS&&S.slot!==r1.pick){S.slot=r1.pick;save()}}
+    SY.map=map;SY.off=off;SY.count=done.length;SY.at=Date.now();
+    SY.ok=true;SY.msg='';
+  }catch(e){
+    SY.ok=false;SY.msg=e.auth?'Yahoo sign-in expired. Tap Disconnect, then Connect Yahoo.':`Sync error: ${e.message}. Retrying.`;
+  }finally{polling=false;render()}
+}
+setInterval(()=>{if(S.lk&&S.live&&!document.hidden)poll();else if(S.lk)syncBar()},6000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&S.lk&&S.live)poll()});
+
+/* ---------- manual controls ---------- */
+$('list').addEventListener('click',e=>{
+  const b=e.target.closest('button');if(!b)return;const r=b.closest('.row');if(!r||!r.dataset.n)return;const n=r.dataset.n;
+  if(b.classList.contains('u')){delete S.st[n];S.hist=S.hist.filter(h=>h!==n)}
+  else{S.st[n]=b.classList.contains('m')?'m':'t';S.hist.push(n)}
+  save();render();
+});
+$('posSeg').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;S.pos=b.dataset.p;save();render();window.scrollTo(0,0)});
+$('q').addEventListener('input',render);
+$('hideBtn').onclick=()=>{S.hide=!S.hide;save();render()};
+$('undoBtn').onclick=()=>{const n=S.hist.pop();if(n)delete S.st[n];save();render()};
+$('resetBtn').onclick=()=>{if(confirm('Clear all manual picks? Synced Yahoo picks will reload.')){S.st={};S.hist=[];save();render()}};
+const sel=$('slotSel');for(let i=1;i<=20;i++)sel.add(new Option(i,i));sel.onchange=()=>{S.slot=+sel.value;save();render()};
+
+render();
+if(S.lk)poll();else if(S.want)runSetup();
+</script>
+</body>
+</html>
