@@ -142,7 +142,7 @@ function header(){
 function syncBar(){
   const el=$('sync');
   if(!S.lk){
-    el.innerHTML=`<span class="dot${SY.ok===false?' err':''}"></span><span>${SY.msg?esc(SY.msg):'Live sync off.'}</span><label for="lid">League ID</label><input id="lid" inputmode="numeric" value="${esc(S.lid)}"><button class="tiny" id="connBtn">${SY.busy?'Connecting':'Connect Yahoo'}</button>`;
+    el.innerHTML=`<span class="dot${SY.ok===false?' err':''}"></span><span>${SY.msg?esc(SY.msg):'Live sync off.'}</span><label for="lid">League ID</label><input id="lid" inputmode="numeric" value="${esc(S.lid)}"><button class="tiny" id="connBtn">${SY.busy?'Connecting':'Connect Yahoo'}</button>${SY.ok===false?'<a href="/.netlify/functions/draft-auth">Sign in to Yahoo again</a>':''}`;
     $('connBtn').onclick=()=>{S.lid=$('lid').value.trim();S.want=true;save();runSetup()};
     return;
   }
