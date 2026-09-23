@@ -130,7 +130,8 @@ function applyState(st){
     else off.push({n:p.name,pos:p.pos,team:p.team,p:posOf(p.pos),mine:isMine});
   });
   const done=st.current?st.current-1:picks.length;
-  SY={map,off,count:Math.max(done,picks.length),picks:picks.length,missed:Math.max(0,done-picks.length),at:st.at||Date.now()};
+  const have=new Set(picks.map(p=>p.pick)),gaps=[];for(let i=1;i<=done;i++)if(!have.has(i))gaps.push(i);
+  SY={map,off,count:Math.max(done,picks.length),picks:picks.length,missed:gaps.length,gaps,at:st.at||Date.now()};
   render();
 }
 window.addEventListener('message',e=>{
@@ -161,7 +162,7 @@ function syncBar(){
   if(!EXT){el.innerHTML=`<span class="dot"></span><span>Draft room sync off. Install the Flamingo Draft Sync extension in Chrome to mark picks automatically.</span>`;return}
   if(!SY.at){el.innerHTML=`<span class="dot"></span><span>Extension ready. Open the Yahoo draft room in another tab and picks will appear here.</span>`;return}
   const ago=Math.round((Date.now()-SY.at)/1000);
-  const miss=SY.missed?` ${SY.missed} earlier pick${SY.missed>1?'s':''} not captured; mark them with Taken.`:'';
+  const miss=SY.missed?` Missed pick${SY.missed>1?'s':''} ${SY.gaps.slice(0,10).map(g=>'#'+g).join(', ')}${SY.gaps.length>10?' and more':''}: check Yahoo's Results tab and mark them Taken.`:'';
   el.innerHTML=`<span class="dot ${SY.missed?'err':'ok'}"></span><span>Live from Yahoo draft room: ${SY.picks} picks, last ${ago}s ago${SY.off.length?`, ${SY.off.length} not on board`:''}.${miss}</span><button class="tiny" id="clrBtn">Clear synced</button>`;
   $('clrBtn').onclick=()=>{if(confirm('Clear synced picks? Use this after a mock draft.'))window.postMessage({source:'flamingo-page',type:'clear'},location.origin)};
 }
